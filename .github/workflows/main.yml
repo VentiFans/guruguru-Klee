@@ -1,12 +1,7 @@
 on:
-  # release:
-  #   types: [published]
-  #   tags:
-  #     - v*
-  
   push:
     tags:
-      - v*
+      - v**
 name: Release
 jobs:
 #   iosRelease:
@@ -38,7 +33,7 @@ jobs:
         with:
           # token: ${{ secrets.ACTION_RELEASE_TOKEN }}
           files: |
-            build/app/outputs/apk/release/*.apk
+            build/app/outputs/apk/release/**.apk
             LICENSE
   # webRelease:
   #   runs-on: ubuntu-latest
