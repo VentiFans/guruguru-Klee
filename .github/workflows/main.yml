@@ -1,6 +1,4 @@
-on:
-  release:
-    types: [published]
+on: [release, workflow_dispatch]
 name: Test, Build and Release apk
 jobs:
   iosRelease:
