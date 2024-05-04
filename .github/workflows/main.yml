@@ -53,7 +53,7 @@ jobs:
         uses: ncipollo/release-action@v1.5.0
         with:
           artifacts: "web_*.zip"
-          token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
+          token: ${{ secrets.ACTION_RELEASE_TOKEN }}
   windowsRelease:
     runs-on: windows-latest
     steps:
@@ -72,7 +72,7 @@ jobs:
         uses: ncipollo/release-action@v1.5.0
         with:
           artifacts: "windows_*.zip"
-          token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
+          token: ${{ secrets.ACTION_RELEASE_TOKEN }}
   # linuxRelease:
   #   runs-on: ubuntu-latest
   #   steps:
