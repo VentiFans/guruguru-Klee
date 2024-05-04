@@ -1,4 +1,8 @@
-on: [release, workflow_dispatch]
+on:
+  release:
+    types: [published]
+    tags:
+      - v*
 name: Release
 jobs:
 #   iosRelease:
@@ -13,7 +17,7 @@ jobs:
 #       - run: flutter pub get
 #       - run: flutter test
 #       - run: flutter build ios --release --no-codesign
-  andRelease:
+  androidRelease:
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
@@ -25,28 +29,50 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --release
       - run: flutter build appbundle
-  # webRelease:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Clone repository
-  #       uses: actions/checkout@v4
-  #     - name: Set up Flutter
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         channel: stable
-  #     - run: flutter pub get
-  #     - run: flutter test
-  #     - run: flutter build web
-  # windowsRelease:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - name: Clone repository
-  #       uses: actions/checkout@v4
-  #     - name: Set up Flutter
-  #       uses: subosito/flutter-action@v2
-  #       with:
-  #         channel: stable
-  #     - run: flutter build windows
+      - name: Release apk
+        uses: ncipollo/release-action@v1.5.0
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
+  webRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter pub get
+      - run: flutter build web --release
+      - name: zip build
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r "web_*.zip" "build/web"
+      - name: Release web
+        uses: ncipollo/release-action@v1.5.0
+        with:
+          artifacts: "web_*.zip"
+          token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
+  windowsRelease:
+    runs-on: windows-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: flutter build windows --release
+      - name: zip build
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r "windows_*.zip" "build\windows\x64\runner\Release"
+      - name: Release windows
+        uses: ncipollo/release-action@v1.5.0
+        with:
+          artifacts: "windows_*.zip"
+          token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
   # linuxRelease:
   #   runs-on: ubuntu-latest
   #   steps:
