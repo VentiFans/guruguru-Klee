@@ -43,6 +43,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: any
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -203,3 +204,22 @@ flutter:
     - assets/Nahida/img/background.gif
     - assets/Nahida/img/welcome.gif
     - assets/Nahida/music/song.mp3
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher/img/common.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/launcher/img/common.png"
+    background_color: "#EFC0AB"
+    theme_color: "#FCCDB1"
+  windows:
+    generate: true
+    image_path: "assets/launcher/img/common.png"
+    icon_size: 256 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/launcher/img/common.png"
