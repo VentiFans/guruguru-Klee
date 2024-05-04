@@ -8,7 +8,6 @@
 >
 > Under MIT License.
 
-
 Developer: FlipWind \
 Based on flutter.dev \
 Independent of ©miHoyo.
